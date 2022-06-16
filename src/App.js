@@ -1,4 +1,4 @@
-import { useState, Fragment } from "react";
+import { useState, Fragment, useEffect } from "react";
 import ReactDOM from "react-dom";
 import "./components/style.css";
 import GoalForm from "./components/GoalForm";
@@ -10,6 +10,15 @@ const initGoals = ["Do all exercise!", "Finish the course!"];
 function App() {
   const [initialGoals, setIntialGoals] = useState(initGoals);
   const [showError, setShowError] = useState();
+
+  useEffect(() => {
+    if (initialGoals.length === 0) {
+      setShowError({
+        title: "An Error Occured!",
+        content: "Goal List is Empty! Please add!",
+      });
+    }
+  }, [initialGoals]);
 
   const onCloseHandler = () => {
     setShowError(null);
